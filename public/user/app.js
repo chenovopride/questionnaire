@@ -15,6 +15,17 @@ const pageConfig = {
   },
 };
 
+function createEntryId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    try {
+      return crypto.randomUUID();
+    } catch (_error) {
+      // fall through to fallback
+    }
+  }
+  return `entry-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 function createPreviewTile(file) {
   const wrapper = document.createElement('div');
   wrapper.className = 'preview-tile';
@@ -144,7 +155,7 @@ function addEntry(container) {
   const wrapper = document.createElement('div');
   wrapper.innerHTML = buildEntryTemplate(page, container.children.length + 1).trim();
   const card = wrapper.firstElementChild;
-  card.dataset.entryId = crypto.randomUUID();
+  card.dataset.entryId = createEntryId();
   container.appendChild(card);
   bindEntryBehaviors(card, container);
   refreshRemoveButtons(container);
@@ -230,12 +241,16 @@ async function initForm() {
   const addButton = form.querySelector('[data-add-entry]');
   const adminCodeInput = form.querySelector('[name="adminCode"]');
 
-  addEntry(container);
-
   addButton.addEventListener('click', () => addEntry(container));
   adminCodeInput.addEventListener('input', () => {
     toggleAdminFields(Boolean(adminCodeInput.value.trim()));
   });
+
+  try {
+    addEntry(container);
+  } catch (error) {
+    showToast(`初始化失败：${error.message}`, 'error');
+  }
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
