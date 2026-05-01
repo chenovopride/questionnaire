@@ -185,13 +185,19 @@ function renderReportHistory() {
     <div class="report-history-list">
       ${state.reports
         .map(
-          (item) => `
+          (item) => {
+            const modelLabel = item.providerName || item.model
+              ? `${item.providerName || ''}${item.providerName && item.model ? ' / ' : ''}${item.model || ''}`
+              : '';
+            return `
             <button class="history-item" type="button" data-report-id="${item.id}">
               <strong>${item.structured?.title || item.rangeMeta.label}</strong>
               <small>${formatDate(item.createdAt)} · ${item.status}</small>
+              ${modelLabel ? `<small>模型：${modelLabel}</small>` : ''}
               ${item.error ? `<small>${item.error}</small>` : ''}
             </button>
-          `,
+          `;
+          },
         )
         .join('')}
     </div>

@@ -487,7 +487,7 @@ async function createServers() {
         return;
       }
 
-      const structured = await generateStructuredReport({
+      const { structured, providerName, model } = await generateStructuredReport({
         providers: config.llmProviders,
         rangeMeta: report.rangeMeta,
         suggestions,
@@ -496,9 +496,13 @@ async function createServers() {
       report.status = 'completed';
       report.completedAt = nowIso();
       report.structured = structured;
+      report.providerName = providerName;
+      report.model = model;
       report.html = renderReportHtml(structured, {
         rangeMeta: report.rangeMeta,
         suggestions,
+        providerName,
+        model,
       });
       report.sourceCount = suggestions.length;
       writeState('reports', reports);

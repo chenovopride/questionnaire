@@ -35,27 +35,23 @@
             <h1>让问题被准确看见</h1>
             <p>你可以一次提交多条 Bug。每条记录都支持文字说明、最多 3 张截图，以及联系信息。</p>
           </div>
-          <div class="hero-side-copy">
-            <span>Optional</span>
-            <strong>填写管理员码后，条目中会出现优先级字段。</strong>
-          </div>
         </section>
 
         <form class="feedback-form" data-feedback-form="bug">
-          <section class="form-top glass-panel fade-rise delay-2">
-            <label class="field">
-              <span>管理员码（选填）</span>
-              <input name="adminCode" type="password" autocomplete="off" placeholder="如需管理员反馈，可填写管理码" />
-            </label>
-            <p class="admin-hint">只要填写了管理员码，页面会显示优先级字段；最终是否生效由后台校验。</p>
-          </section>
-
           <section class="entry-stack" data-entry-container></section>
 
           <div class="form-actions fade-rise delay-3">
             <button class="ghost-button" type="button" data-add-entry>+ 再加一条 Bug</button>
             <button class="submit-button" type="submit">提交本次 Bug 反馈</button>
           </div>
+
+          <section class="admin-code-footer">
+            <label class="field inline-field">
+              <span>管理员码（选填）</span>
+              <input name="adminCode" type="password" autocomplete="off" placeholder="仅管理员需填写" />
+            </label>
+            <p class="admin-hint">填写后页面会出现优先级字段，最终是否生效由后台校验。</p>
+          </section>
         </form>
       </main>
     </div>

@@ -47,7 +47,7 @@ function getPriorityOptions() {
 function buildEntryTemplate(type, index) {
   const isBug = type === 'bug';
   return `
-    <article class="entry-card glass-panel fade-rise">
+    <article class="entry-card glass-panel">
       <div class="entry-head">
         <div>
           <h2 class="entry-title">${isBug ? 'Bug' : '建议'} #${index}</h2>

@@ -66,26 +66,57 @@ function extractJsonPayload(rawText) {
   return JSON.parse(jsonText);
 }
 
+function normalizeApiUrl(rawUrl) {
+  const trimmed = String(rawUrl || '').trim().replace(/\/+$/, '');
+  if (/\/chat\/completions$/.test(trimmed)) {
+    return trimmed;
+  }
+  return `${trimmed}/chat/completions`;
+}
+
+function buildProviderHeaders(provider, apiUrl) {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${provider.apiKey}`,
+  };
+
+  if (apiUrl.includes('openrouter.ai')) {
+    headers['HTTP-Referer'] = 'http://localhost:5012';
+    headers['X-Title'] = 'Questionnaire Admin';
+  }
+
+  return headers;
+}
+
 async function callProvider(provider, payload) {
-  const response = await fetch(provider.apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${provider.apiKey}`,
-    },
-    body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(45000),
-  });
+  const apiUrl = normalizeApiUrl(provider.apiUrl);
+  let response;
+  try {
+    response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: buildProviderHeaders(provider, apiUrl),
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(45000),
+    });
+  } catch (error) {
+    throw new Error(`${provider.name}/${provider.model} 网络错误：${error.message || 'fetch failed'}`);
+  }
 
   if (!response.ok) {
-    throw new Error(`${provider.name} 请求失败 (${response.status})`);
+    let detail = '';
+    try {
+      detail = (await response.text()).slice(0, 200);
+    } catch (_error) {
+      detail = '';
+    }
+    throw new Error(`${provider.name}/${provider.model} 请求失败 (${response.status})${detail ? `：${detail}` : ''}`);
   }
 
   const data = await response.json();
   const content = normalizeAssistantText(data?.choices?.[0]?.message?.content);
 
   if (!content) {
-    throw new Error(`${provider.name} 未返回正文内容`);
+    throw new Error(`${provider.name}/${provider.model} 未返回正文内容`);
   }
 
   return extractJsonPayload(content);
@@ -155,11 +186,16 @@ async function generateStructuredReport({ providers, rangeMeta, suggestions }) {
 
   for (const provider of providers) {
     try {
-      return await callProvider(provider, {
+      const structured = await callProvider(provider, {
         model: provider.model,
         temperature: 0.35,
         messages,
       });
+      return {
+        structured,
+        providerName: provider.name,
+        model: provider.model,
+      };
     } catch (error) {
       errors.push(error.message);
     }
@@ -256,6 +292,10 @@ function renderReportHtml(structured, context) {
           <span>时间范围</span>
           <strong>${escapeHtml(context.rangeMeta.label)}</strong>
           <small>${escapeHtml(new Date(context.rangeMeta.from).toLocaleString('zh-CN'))} - ${escapeHtml(new Date(context.rangeMeta.to).toLocaleString('zh-CN'))}</small>
+          ${context.providerName || context.model ? `
+            <span style="margin-top: 8px;">生成模型</span>
+            <small>${escapeHtml(context.providerName || '')}${context.providerName && context.model ? ' / ' : ''}${escapeHtml(context.model || '')}</small>
+          ` : ''}
         </aside>
       </header>
 
