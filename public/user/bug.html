@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>反馈 Bug</title>
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/600.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400-italic.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/300.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/500.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-serif-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/manrope/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/lora/500.css" />
+    <link rel="stylesheet" href="/common/theme.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="user-site" data-page="bug">
+    <div class="ambient-shell">
+      <div class="mist-orb orb-a"></div>
+      <div class="mist-orb orb-b"></div>
+      <main class="form-shell">
+        <header class="form-header fade-rise">
+          <a class="pill back-link" href="/">← 返回首页</a>
+          <div class="brand-mark">
+            <span class="brand-dot"></span>
+            <span>LumeForU</span>
+          </div>
+        </header>
+
+        <section class="form-hero glass-panel fade-rise delay-1">
+          <div>
+            <span class="eyebrow">Bug pathway</span>
+            <h1>让问题被准确看见</h1>
+            <p>你可以一次提交多条 Bug。每条记录都支持文字说明、最多 3 张截图，以及联系信息。</p>
+          </div>
+          <div class="hero-side-copy">
+            <span>Optional</span>
+            <strong>填写管理员码后，条目中会出现优先级字段。</strong>
+          </div>
+        </section>
+
+        <form class="feedback-form" data-feedback-form="bug">
+          <section class="form-top glass-panel fade-rise delay-2">
+            <label class="field">
+              <span>管理员码（选填）</span>
+              <input name="adminCode" type="password" autocomplete="off" placeholder="如需管理员反馈，可填写管理码" />
+            </label>
+            <p class="admin-hint">只要填写了管理员码，页面会显示优先级字段；最终是否生效由后台校验。</p>
+          </section>
+
+          <section class="entry-stack" data-entry-container></section>
+
+          <div class="form-actions fade-rise delay-3">
+            <button class="ghost-button" type="button" data-add-entry>+ 再加一条 Bug</button>
+            <button class="submit-button" type="submit">提交本次 Bug 反馈</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

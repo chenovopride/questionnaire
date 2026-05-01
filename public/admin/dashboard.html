@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理台</title>
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/600.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400-italic.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/300.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/500.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-serif-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/manrope/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/lora/500.css" />
+    <link rel="stylesheet" href="/common/theme.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="admin-site">
+    <div class="dashboard-shell">
+      <aside class="dashboard-aside glass-panel">
+        <div>
+          <span class="eyebrow">Lume Console</span>
+          <h1>管理台</h1>
+          <p>在这里同步看见问题、需求和风格调整。</p>
+        </div>
+
+        <nav class="dashboard-nav">
+          <button class="tab-button active" type="button" data-tab="bugs">Bug 查看</button>
+          <button class="tab-button" type="button" data-tab="suggestions">建议 / 文档</button>
+          <button class="tab-button" type="button" data-tab="theme">用户站风格</button>
+        </nav>
+
+        <a class="open-user-link" href="http://localhost:5011" target="_blank" rel="noreferrer">打开用户站</a>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-top glass-panel">
+          <div>
+            <span class="eyebrow">Live admin session</span>
+            <h2 id="welcomeText">欢迎回来</h2>
+          </div>
+          <button class="secondary-button" type="button" id="logoutButton">退出登录</button>
+        </header>
+
+        <section class="tab-panel active" data-panel="bugs">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Bug tracker</span>
+              <h2>Bug 查看与处理</h2>
+            </div>
+          </div>
+
+          <div class="metric-grid" id="bugMetrics"></div>
+
+          <form class="filter-bar glass-panel" id="bugFilters">
+            <input name="keyword" type="text" placeholder="搜索描述 / 备注" />
+            <select name="status">
+              <option value="">全部状态</option>
+              <option value="新建">新建</option>
+              <option value="进行中">进行中</option>
+              <option value="无法修复">无法修复</option>
+              <option value="取消">取消</option>
+              <option value="完成修复">完成修复</option>
+            </select>
+            <select name="priority">
+              <option value="">全部优先级</option>
+              <option value="高">高</option>
+              <option value="中">中</option>
+              <option value="低">低</option>
+              <option value="未设置">未设置</option>
+            </select>
+            <select name="source">
+              <option value="">全部来源</option>
+              <option value="admin">管理员</option>
+              <option value="user">用户</option>
+            </select>
+            <button class="secondary-button" type="submit">刷新</button>
+          </form>
+
+          <div class="record-list" id="bugList"></div>
+        </section>
+
+        <section class="tab-panel" data-panel="suggestions">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Product requests</span>
+              <h2>功能建议与需求文档</h2>
+            </div>
+          </div>
+
+          <div class="metric-grid" id="suggestionMetrics"></div>
+
+          <form class="filter-bar glass-panel" id="suggestionFilters">
+            <input name="keyword" type="text" placeholder="搜索描述 / 备注" />
+            <select name="status">
+              <option value="">全部状态</option>
+              <option value="待评估">待评估</option>
+              <option value="已纳入计划">已纳入计划</option>
+              <option value="暂缓">暂缓</option>
+              <option value="已完成">已完成</option>
+            </select>
+            <select name="importance">
+              <option value="">全部重要性</option>
+              <option value="非常重要">非常重要</option>
+              <option value="值得优化">值得优化</option>
+              <option value="灵感建议">灵感建议</option>
+            </select>
+            <select name="priority">
+              <option value="">全部管理员优先级</option>
+              <option value="高">高</option>
+              <option value="中">中</option>
+              <option value="低">低</option>
+              <option value="未设置">未设置</option>
+            </select>
+            <select name="source">
+              <option value="">全部来源</option>
+              <option value="admin">管理员</option>
+              <option value="user">用户</option>
+            </select>
+            <button class="secondary-button" type="submit">刷新</button>
+          </form>
+
+          <section class="report-workbench glass-panel">
+            <div>
+              <span class="eyebrow">AI summary</span>
+              <h3>生成产品需求文档</h3>
+              <p>生成任务会在后台继续运行，即使前端刷新或断开也不会中断。</p>
+            </div>
+            <div class="report-buttons">
+              <button class="primary-button" type="button" data-range="two-weeks">总结最近两周</button>
+              <button class="secondary-button" type="button" data-range="one-month">总结最近一个月</button>
+              <button class="secondary-button" type="button" data-range="since-last">从上次总结到现在</button>
+            </div>
+          </section>
+
+          <div class="report-layout">
+            <div class="record-list" id="suggestionList"></div>
+            <div class="report-panel-shell">
+              <div class="report-history glass-panel">
+                <div class="panel-head compact">
+                  <div>
+                    <span class="eyebrow">Archive</span>
+                    <h3>历史文档</h3>
+                  </div>
+                </div>
+                <div id="reportHistory"></div>
+              </div>
+              <div class="report-viewer glass-panel" id="reportViewer">
+                <p class="empty-state">选择一份历史文档，或先发起新的总结任务。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-panel="theme">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Theme control</span>
+              <h2>用户站颜色与字体调节</h2>
+            </div>
+          </div>
+
+          <form class="theme-form" id="themeForm">
+            <div class="theme-editor glass-panel" id="themeControls"></div>
+            <div class="theme-preview-shell glass-panel">
+              <div class="theme-preview" id="themePreview">
+                <span class="eyebrow">Preview</span>
+                <h3>Whisper, archived softly.</h3>
+                <p>用户站会保持轻雾渐变、细腻衬线标题与柔和信息层次。</p>
+                <div class="preview-buttons">
+                  <span class="preview-button active">反馈 Bug</span>
+                  <span class="preview-button">功能建议</span>
+                </div>
+                <div class="preview-card-grid">
+                  <div class="preview-card">0-3 张图片上传</div>
+                  <div class="preview-card accent">微量点缀色</div>
+                </div>
+              </div>
+            </div>
+            <div class="theme-save-row">
+              <button class="primary-button" type="submit">保存用户站风格</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

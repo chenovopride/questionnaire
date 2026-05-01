@@ -1,0 +1,9 @@
+node_modules/
+data/*.json
+uploads/*
+!uploads/.gitkeep
+.DS_Store
+npm-debug.log*
+*.jpg
+网站设计需求.md
+config.cfg

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/600.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400-italic.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/300.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/500.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-serif-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/manrope/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/lora/500.css" />
+    <link rel="stylesheet" href="/common/theme.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="admin-site admin-login">
+    <div class="admin-login-shell">
+      <section class="login-copy fade-rise">
+        <span class="eyebrow">Admin console</span>
+        <h1>Lume Console</h1>
+        <p>管理 Bug、产品建议、智能需求文档，以及用户站的配色与字体策略。</p>
+        <div class="login-copy-card glass-panel">
+          <strong>当前入口能力</strong>
+          <ul>
+            <li>Bug 筛选 / 修改 / 删除</li>
+            <li>功能建议沉淀成产品文档</li>
+            <li>用户站实时主题调优</li>
+          </ul>
+        </div>
+      </section>
+
+      <form class="login-card glass-panel fade-rise delay-2" id="loginForm">
+        <div>
+          <span class="eyebrow">Secure access</span>
+          <h2>管理员登录</h2>
+        </div>
+        <label class="field">
+          <span>管理员名称</span>
+          <input name="username" type="text" autocomplete="username" placeholder="例如：cyx" required />
+        </label>
+        <label class="field">
+          <span>管理员密码</span>
+          <input name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required />
+        </label>
+        <button class="primary-button" type="submit">进入管理台</button>
+      </form>
+    </div>
+
+    <script type="module" src="/login.js"></script>
+  </body>
+</html>

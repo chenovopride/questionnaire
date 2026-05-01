@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>功能建议</title>
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/600.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/cormorant-garamond/400-italic.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/300.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-sans-sc/500.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/noto-serif-sc/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/manrope/400.css" />
+    <link rel="stylesheet" href="/vendor/@fontsource/lora/500.css" />
+    <link rel="stylesheet" href="/common/theme.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="user-site" data-page="suggestions">
+    <div class="ambient-shell">
+      <div class="mist-orb orb-b"></div>
+      <div class="mist-orb orb-c"></div>
+      <main class="form-shell">
+        <header class="form-header fade-rise">
+          <a class="pill back-link" href="/">← 返回首页</a>
+          <div class="brand-mark">
+            <span class="brand-dot"></span>
+            <span>LumeForU</span>
+          </div>
+        </header>
+
+        <section class="form-hero glass-panel fade-rise delay-1">
+          <div>
+            <span class="eyebrow">Product signal</span>
+            <h1>把想法交给产品团队</h1>
+            <p>支持一次提交多条功能建议。每条记录包含文字说明、重要性判断、图片说明与联系信息。</p>
+          </div>
+          <div class="hero-side-copy">
+            <span>Optional</span>
+            <strong>管理员码通过校验后，可以额外设置管理员优先级。</strong>
+          </div>
+        </section>
+
+        <form class="feedback-form" data-feedback-form="suggestions">
+          <section class="form-top glass-panel fade-rise delay-2">
+            <label class="field">
+              <span>管理员码（选填）</span>
+              <input name="adminCode" type="password" autocomplete="off" placeholder="如需管理员反馈，可填写管理码" />
+            </label>
+            <p class="admin-hint">页面只负责展示优先级输入位，真正的管理员身份仍由后台确认。</p>
+          </section>
+
+          <section class="entry-stack" data-entry-container></section>
+
+          <div class="form-actions fade-rise delay-3">
+            <button class="ghost-button" type="button" data-add-entry>+ 再加一条建议</button>
+            <button class="submit-button" type="submit">提交本次建议</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
